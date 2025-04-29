@@ -7,6 +7,8 @@ Este proyecto contiene tres microservicios escritos en Go que simulan el flujo d
 - **`notification-service`**: Escucha eventos desde NATS y simula el envío de notificaciones.
 - **`nats`**: Event bus en memoria para comunicación asíncrona entre microservicios.
 
+![alt text](diagram.png)
+
 ## 🚀 Cómo ejecutar
 
 ### Requisitos
