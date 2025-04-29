@@ -21,6 +21,3 @@ make build
 # Correr en contenedor
 make docker-build
 make docker-run
-
-# Hot reload
-make air
