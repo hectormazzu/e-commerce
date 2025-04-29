@@ -74,6 +74,10 @@ delivery-service/
 ---
 
 ### 📦 Endpoints REST
+- El archivo `CFOTech REST API basics- CRUD, test & variable.postman_collection` tiene configurado requests para probar todos los endpoints de delivery-service y orders-service.
+
+   ![alt text](image.png)
+
 #### **POST /routes**
 - Crea una nueva ruta.
 - **Body**:
