@@ -2,7 +2,6 @@ package test
 
 import (
 	"bytes"
-	common_models "cfotech/common/models"
 	"delivery-service/internal/db"
 	"delivery-service/internal/handlers"
 	"delivery-service/internal/models"
@@ -135,7 +134,7 @@ func TestStartRoute(t *testing.T) {
 	// Verify the order status is updated to DISPATCHED
 	var updatedRoute models.Route
 	db.DB.Preload("Orders").First(&updatedRoute, "id = ?", route.ID)
-	assert.Equal(t, common_models.StatusDispached, updatedRoute.Orders[0].Status)
+	assert.Equal(t, models.StatusDispached, updatedRoute.Orders[0].Status)
 
 	// Test case: Route not found
 	req, _ = http.NewRequest("POST", "/routes/999/start", nil)
@@ -169,7 +168,7 @@ func TestDeliverOrder1(t *testing.T) {
 	// Verify the order status is updated to DELIVERED
 	var updatedRoute models.Route
 	db.DB.Preload("Orders").First(&updatedRoute, "id = ?", route.ID)
-	assert.Equal(t, common_models.StatusDelivered, updatedRoute.Orders[0].Status)
+	assert.Equal(t, models.StatusDelivered, updatedRoute.Orders[0].Status)
 
 	// Test case: Order not found in the route
 	req, _ = http.NewRequest("POST", "/routes/1/orders/order999/deliver", nil)

@@ -1,9 +1,9 @@
 package event
 
 import (
-	common_models "cfotech/common/models"
 	"encoding/json"
 	"log"
+	"notification-service/internal/models"
 
 	"github.com/nats-io/nats.go"
 )
@@ -16,7 +16,7 @@ func StartConsumer() {
 	log.Println("Connected to NATS")
 
 	nc.Subscribe("delivery.events", func(m *nats.Msg) {
-		var event common_models.DeliveryEvent
+		var event models.DeliveryEvent
 		if err := json.Unmarshal(m.Data, &event); err != nil {
 			log.Printf("Error parsing event: %v", err)
 			return
@@ -35,7 +35,7 @@ func StartConsumer() {
 }
 
 // Helper function to send an email notification
-func sendEmailNotification(event common_models.DeliveryEvent) error {
+func sendEmailNotification(event models.DeliveryEvent) error {
 	// Replace with actual email sending logic
 	log.Printf("Sending email notification for order %s with status %s\n", event.OrderID, event.Status)
 	return nil

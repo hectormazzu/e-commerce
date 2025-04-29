@@ -31,7 +31,7 @@ func main() {
 	r.POST("/routes/:id/start", handlers.StartRoute)
 	r.POST("/routes/:id/orders/:order_id/deliver", handlers.DeliverOrder)
 
-	log.Println("Delivery service running on port 8082")
+	log.Println("Delivery service running on port:", os.Getenv("DELIVERY_SERVICE_PORT"))
 	r.Run(":" + os.Getenv("DELIVERY_SERVICE_PORT"))
 	// r.Run(":8082") // listen and serve on
 }

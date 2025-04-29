@@ -2,10 +2,7 @@ module notification-service
 
 go 1.24.2
 
-require (
-	cfotech/common v0.0.0-00010101000000-000000000000
-	github.com/nats-io/nats.go v1.41.2
-)
+require github.com/nats-io/nats.go v1.41.2
 
 require (
 	github.com/klauspost/compress v1.18.0 // indirect
@@ -15,4 +12,4 @@ require (
 	golang.org/x/sys v0.32.0 // indirect
 )
 
-replace cfotech/common => ../common
+// replace cfotech/common => ../common

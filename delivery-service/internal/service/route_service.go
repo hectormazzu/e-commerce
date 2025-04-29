@@ -6,8 +6,6 @@ import (
 	"errors"
 	"log"
 	"sync"
-
-	common_models "cfotech/common/models"
 )
 
 func CreateRoute(vehicleID uint, driverID uint, Orders []models.Order) (*models.Route, error) {
@@ -49,16 +47,16 @@ func AddOrderToRoute(routeID, orderID string) (*models.Route, error) {
 		}
 	}
 
-	route.Orders = append(route.Orders, models.Order{OrderID: orderID, Status: common_models.StatusPending})
+	route.Orders = append(route.Orders, models.Order{OrderID: orderID, Status: models.StatusPending})
 	err = repository.UpdateRoute(route)
 	if err != nil {
 		return nil, err
 	}
 
 	// Publish an event for the added order
-	event := common_models.DeliveryEvent{
+	event := models.DeliveryEvent{
 		OrderID: orderID,
-		Status:  string(common_models.StatusPending),
+		Status:  string(models.StatusPending),
 		Details: "Order added to route",
 	}
 	if err := PublishEvent("delivery.events", event); err != nil {
@@ -93,7 +91,7 @@ func GetRoute(routeID string) (*models.Route, error) {
 
 			// Safely update the order's status
 			mu.Lock()
-			order.Status = common_models.OrderStatus(status)
+			order.Status = models.OrderStatus(status)
 			mu.Unlock()
 		}(&route.Orders[i])
 	}
@@ -117,12 +115,12 @@ func StartRoute(routeID string) error {
 	}
 
 	for i := range route.Orders {
-		route.Orders[i].Status = common_models.StatusDispached
+		route.Orders[i].Status = models.StatusDispached
 
 		// Publish an event for each dispatched order
-		event := common_models.DeliveryEvent{
+		event := models.DeliveryEvent{
 			OrderID: route.Orders[i].OrderID,
-			Status:  string(common_models.StatusDispached),
+			Status:  string(models.StatusDispached),
 			Details: "Order dispatched",
 		}
 		if err := PublishEvent("delivery.events", event); err != nil {
@@ -155,12 +153,12 @@ func DeliverOrder(routeID string, orderID string) error {
 	}
 
 	// Update the order status to StatusDelivered
-	order.Status = common_models.StatusDelivered
+	order.Status = models.StatusDelivered
 
 	// Publish an event to NATS for the delivered order
-	event := common_models.DeliveryEvent{
+	event := models.DeliveryEvent{
 		OrderID: order.OrderID,
-		Status:  string(common_models.StatusDelivered),
+		Status:  string(models.StatusDelivered),
 		Details: "Order delivered",
 	}
 	if err := PublishEvent("delivery.events", event); err != nil {

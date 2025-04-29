@@ -19,5 +19,3 @@ docker-build:
 docker-run:
 	docker run --rm -p $(PORT):$(PORT) $(APP_NAME)
 
-air:
-	air

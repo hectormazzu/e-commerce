@@ -1,7 +1,6 @@
 package event
 
 import (
-	common_models "cfotech/common/models"
 	"encoding/json"
 	"log"
 	"orders-service/internal/db"
@@ -21,7 +20,7 @@ func StartConsumer() {
 
 	// Subscribe to the "delivery.events" subject
 	nc.Subscribe("delivery.events", func(m *nats.Msg) {
-		var DeliveryEvent common_models.DeliveryEvent
+		var DeliveryEvent models.DeliveryEvent
 		if err := json.Unmarshal(m.Data, &DeliveryEvent); err != nil {
 			log.Printf("Error parsing event: %v", err)
 			return
@@ -30,7 +29,7 @@ func StartConsumer() {
 		log.Printf("[ORDERS-SERVICE] Received event for order %s with status %s\n", DeliveryEvent.OrderID, DeliveryEvent.Status)
 
 		// Update the order status in the database
-		err := updateOrderStatus(DeliveryEvent.OrderID, common_models.OrderStatus(DeliveryEvent.Status))
+		err := updateOrderStatus(DeliveryEvent.OrderID, models.OrderStatus(DeliveryEvent.Status))
 		if err != nil {
 			log.Printf("Failed to update status for order %s: %v", DeliveryEvent.OrderID, err)
 		}
@@ -40,7 +39,7 @@ func StartConsumer() {
 }
 
 // Helper function to update the order status in the database
-func updateOrderStatus(orderID string, status common_models.OrderStatus) error {
+func updateOrderStatus(orderID string, status models.OrderStatus) error {
 	var order models.Order
 	if err := db.DB.First(&order, "id = ?", orderID).Error; err != nil {
 		return err

@@ -5,7 +5,7 @@ services:
       - "${DELIVERY_SERVICE_PORT}:${DELIVERY_SERVICE_PORT}"
     working_dir: /app
     environment:
-      - PORT=${DELIVERY_SERVICE_PORT}
+      - DELIVERY_SERVICE_PORT=${DELIVERY_SERVICE_PORT}
       - NATS_URL=nats://nats:4222
       - ORDERS_SERVICE_URL=http://orders-service:${ORDERS_SERVICE_PORT}
     depends_on:
@@ -17,7 +17,7 @@ services:
       - "${ORDERS_SERVICE_PORT}:${ORDERS_SERVICE_PORT}"
     working_dir: /app
     environment:
-      - PORT=${ORDERS_SERVICE_PORT}
+      - ORDERS_SERVICE_PORT=${ORDERS_SERVICE_PORT}
       - NATS_URL=nats://nats:4222
     depends_on:
       - nats

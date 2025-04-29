@@ -3,7 +3,6 @@ module delivery-service
 go 1.24.2
 
 require (
-	cfotech/common v0.0.0-00010101000000-000000000000
 	github.com/gin-gonic/gin v1.10.0
 	github.com/nats-io/nats.go v1.41.2
 	github.com/stretchr/testify v1.9.0
@@ -48,4 +47,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace cfotech/common => ../common
+// replace cfotech/common => ../common

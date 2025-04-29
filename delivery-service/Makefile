@@ -1,5 +1,5 @@
-APP_NAME=orders-service
-PORT=8081
+APP_NAME=delivery-service
+PORT=8082
 
 run:
 	go run ./cmd/main.go
