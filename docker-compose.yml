@@ -1,0 +1,36 @@
+services:
+  delivery-service:
+    build: ./delivery-service
+    ports:
+      - "${DELIVERY_SERVICE_PORT}:${DELIVERY_SERVICE_PORT}"
+    working_dir: /app
+    environment:
+      - DELIVERY_SERVICE_PORT=${DELIVERY_SERVICE_PORT}
+      - NATS_URL=nats://nats:4222
+      - ORDERS_SERVICE_URL=http://orders-service:${ORDERS_SERVICE_PORT}
+    depends_on:
+      - nats
+
+  orders-service:
+    build: ./orders-service
+    ports:
+      - "${ORDERS_SERVICE_PORT}:${ORDERS_SERVICE_PORT}"
+    working_dir: /app
+    environment:
+      - ORDERS_SERVICE_PORT=${ORDERS_SERVICE_PORT}
+      - NATS_URL=nats://nats:4222
+    depends_on:
+      - nats
+
+  notification-service:
+    build: ./notification-service
+    working_dir: /app
+    environment:
+    - NATS_URL=nats://nats:4222
+    depends_on:
+      - nats
+
+  nats:
+    image: nats:latest
+    ports:
+      - "4222:4222"

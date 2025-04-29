@@ -1,0 +1,25 @@
+# Ignorar binarios
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Ignorar directorios de dependencias
+vendor/
+
+# Ignorar archivos temporales
+*.log
+*.tmp
+*.out
+
+# Ignorar archivos de configuración local
+.env
+.air.toml
+
+# Ignorar carpetas ocultas
+.git/
+.idea/
+.vscode/
+tmp/
