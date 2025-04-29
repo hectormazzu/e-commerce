@@ -80,24 +80,5 @@ func DeliverOrder(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "Route started successfully"})
+	c.JSON(http.StatusOK, gin.H{"message": "Order delivered successfully"})
 }
-
-// func GetAllRoutes(c *gin.Context) {
-// 	var routes []models.Route
-// 	if err := db.DB.Preload("Vehicle").Preload("Orders").Find(&routes).Error; err != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch routes"})
-// 		return
-// 	}
-
-// 	c.JSON(http.StatusOK, routes)
-// }
-// func GetAllOrders(c *gin.Context) {
-// 	var orders []models.Order
-// 	if err := db.DB.Find(&orders).Error; err != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch orders"})
-// 		return
-// 	}
-
-// 	c.JSON(http.StatusOK, orders)
-// }
